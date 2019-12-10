@@ -53,8 +53,8 @@ function searchWeather() {
 }
 
 function Weather(weatherData) {
-  this.forecast = weatherData.summary;
   this.time = weatherData.time;
+  this.forecast = weatherData.summary;
 }
 
 // page not found route
