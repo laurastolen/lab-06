@@ -10,30 +10,19 @@ app.use(cors());
 
 app.listen(PORT, () => console.log(`listening on port ${PORT}!`));
 
-// ROUTES:
+// ----------------ROUTES:-------------------
+// location route:
 app.get('/location', (req, res) => {
   let city = req.query.data;
-
   let locationObj = searchLatToLong(city);
-
   res.send(locationObj);
-  console.log(locationObj)
+  console.log(locationObj);
 });
 
 function searchLatToLong(city) {
   const geoData = require('./data/geo.json');
-
   const geoDataResults = geoData.results[0];
-
   const locationObj = new Location(city, geoDataResults);
-
-  // const locationObj = {
-  //   "search_query": city,
-  //   "formatted_query": geoDataResults.formatted_address,
-  //   "latitude": geoDataResults.geometry.location.lat,
-  //   "longitude": geoDataResults.geometry.location.lng,
-  // };
-
   return locationObj;
 }
 
@@ -46,8 +35,29 @@ function Location(city, geoDataResults) {
   this.longitude = geoDataResults.geometry.location.lng;
 }
 
+// weather route
+app.get('/weather', (req, res) => {
+  const forecastObj = searchWeather();
+  res.send(forecastObj);
+  console.log(forecastObj);
+});
 
+function searchWeather() {
+  const weatherData = require('./data/darksky.json');
+  const weatherDataDaily = weatherData.daily.data; // is an array
+  const weatherArray = [];
+  for (let i = 0; i < weatherDataDaily.length; i++) {
+    weatherArray.push(new Weather(weatherDataDaily[i]));
+  }
+  return weatherArray;
+}
 
+function Weather(weatherData) {
+  this.forecast = weatherData.summary;
+  this.time = weatherData.time;
+}
+
+// page not found route
 app.get('*', (req, res) => {
   res.status(404).send('page not found!');
 });
