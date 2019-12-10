@@ -42,15 +42,15 @@ Estimate of time needed to complete: 1.5 hours
 
 Start time: 11:00
 
-Finish time: _____
+Finish time: 11:40
 
-Actual time needed to complete: _____
+Actual time needed to complete: 40 minutes
 
 Number and name of feature: Weather (show weather info about a location)
 
 Estimate of time needed to complete: 1.5 hours
 
-Start time: _____
+Start time: 11:40
 
 Finish time: _____
 
